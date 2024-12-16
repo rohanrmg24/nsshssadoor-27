@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Link } from 'react-router-dom';
+import { Switch } from "@/components/ui/switch";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,9 +16,9 @@ const Navbar = () => {
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Downloads', href: '/downloads' },
-    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -43,26 +44,28 @@ const Navbar = () => {
             </div>
             
             {mounted && (
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-md hover:bg-cream hover:text-maroon transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
+              <div className="flex items-center space-x-2">
+                <Sun className="h-4 w-4" />
+                <Switch
+                  checked={theme === 'dark'}
+                  onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                />
+                <Moon className="h-4 w-4" />
+              </div>
             )}
           </div>
           
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             {mounted && (
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-md hover:bg-cream hover:text-maroon transition-colors mr-2"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
+              <div className="flex items-center space-x-2 mr-2">
+                <Sun className="h-4 w-4" />
+                <Switch
+                  checked={theme === 'dark'}
+                  onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                />
+                <Moon className="h-4 w-4" />
+              </div>
             )}
             <button
               onClick={() => setIsOpen(!isOpen)}
