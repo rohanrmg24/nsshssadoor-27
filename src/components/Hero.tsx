@@ -18,13 +18,19 @@ const Hero = () => {
 
   const fetchHeroImage = async () => {
     try {
+      console.log('Fetching hero image...');
       const { data, error } = await supabase
         .from('images')
         .select('url')
         .eq('section', 'hero')
-        .single();
+        .maybeSingle();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching hero image:', error);
+        return;
+      }
+
+      console.log('Hero image data:', data);
       if (data) setHeroImage(data.url);
     } catch (error) {
       console.error('Error fetching hero image:', error);
@@ -57,13 +63,15 @@ const Hero = () => {
               Learn More
             </button>
           </div>
-          <div className="mt-12">
-            <img
-              src={heroImage || "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"}
-              alt="Education"
-              className="w-full h-auto rounded-lg shadow-xl"
-            />
-          </div>
+          {heroImage && (
+            <div className="mt-12">
+              <img
+                src={heroImage}
+                alt="Education"
+                className="w-full h-auto rounded-lg shadow-xl"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
