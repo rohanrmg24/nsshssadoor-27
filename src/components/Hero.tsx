@@ -1,18 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from 'lucide-react';
-import HomeSlider from './HomeSlider';
+import { supabase } from "@/integrations/supabase/client";
 
 const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [heroImage, setHeroImage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
+    fetchHeroImage();
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
   }, []);
+
+  const fetchHeroImage = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('images')
+        .select('url')
+        .eq('section', 'hero')
+        .single();
+
+      if (error) throw error;
+      if (data) setHeroImage(data.url);
+    } catch (error) {
+      console.error('Error fetching hero image:', error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -24,7 +41,6 @@ const Hero = () => {
 
   return (
     <div id="home" className="pt-16 bg-cream dark:bg-gray-900">
-      <HomeSlider />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center animate-fade-in">
           <h1 className="text-4xl tracking-tight font-extrabold text-maroon dark:text-cream sm:text-5xl md:text-6xl">
@@ -43,7 +59,7 @@ const Hero = () => {
           </div>
           <div className="mt-12">
             <img
-              src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+              src={heroImage || "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"}
               alt="Education"
               className="w-full h-auto rounded-lg shadow-xl"
             />

@@ -1,17 +1,60 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, User, LogOut } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Switch } from "@/components/ui/switch";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [user, setUser] = useState(null);
   const { theme, setTheme } = useTheme();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     setMounted(true);
+    checkUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
   }, []);
+
+  const checkUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    setUser(user);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Success",
+        description: "Logged out successfully",
+      });
+      navigate('/');
+    } catch (error) {
+      console.error('Error logging out:', error);
+      toast({
+        title: "Error",
+        description: "Failed to log out",
+        variant: "destructive",
+      });
+    }
+  };
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -44,28 +87,68 @@ const Navbar = () => {
             </div>
             
             {mounted && (
-              <div className="flex items-center space-x-2">
-                <Sun className="h-4 w-4" />
-                <Switch
-                  checked={theme === 'dark'}
-                  onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                />
-                <Moon className="h-4 w-4" />
-              </div>
+              <>
+                <div className="flex items-center space-x-2">
+                  <Sun className="h-4 w-4" />
+                  <Switch
+                    checked={theme === 'dark'}
+                    onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  />
+                  <Moon className="h-4 w-4" />
+                </div>
+
+                {user ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="flex items-center space-x-2 hover:bg-cream hover:text-maroon px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                      <User className="h-4 w-4" />
+                      <span>Profile</span>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem onClick={handleLogout}>
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <Link
+                    to="/admin"
+                    className="hover:bg-cream hover:text-maroon px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    Login
+                  </Link>
+                )}
+              </>
             )}
           </div>
           
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             {mounted && (
-              <div className="flex items-center space-x-2 mr-2">
-                <Sun className="h-4 w-4" />
-                <Switch
-                  checked={theme === 'dark'}
-                  onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                />
-                <Moon className="h-4 w-4" />
-              </div>
+              <>
+                <div className="flex items-center space-x-2 mr-2">
+                  <Sun className="h-4 w-4" />
+                  <Switch
+                    checked={theme === 'dark'}
+                    onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  />
+                  <Moon className="h-4 w-4" />
+                </div>
+
+                {user && (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="mr-2">
+                      <User className="h-6 w-6" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem onClick={handleLogout}>
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
+              </>
             )}
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -92,6 +175,15 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+            {!user && (
+              <Link
+                to="/admin"
+                className="block hover:bg-cream hover:text-maroon px-3 py-2 rounded-md text-base font-medium transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}

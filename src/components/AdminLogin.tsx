@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,17 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  const checkUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      navigate('/gallery');
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +37,7 @@ const AdminLogin = () => {
         description: "Logged in successfully",
       });
       
-      navigate('/'); // Navigate to home page after successful login
+      navigate('/gallery');
     } catch (error) {
       console.error('Error logging in:', error);
       toast({
