@@ -15,6 +15,7 @@ const AdminImageUpload = ({ section, onUploadComplete }: { section: string, onUp
 
     setIsUploading(true);
     try {
+      console.log('Starting file upload...');
       const fileExt = file.name.split('.').pop();
       const filePath = `${crypto.randomUUID()}.${fileExt}`;
 
@@ -25,10 +26,14 @@ const AdminImageUpload = ({ section, onUploadComplete }: { section: string, onUp
 
       if (uploadError) throw uploadError;
 
+      console.log('File uploaded successfully:', data);
+
       // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from('school-images')
         .getPublicUrl(filePath);
+
+      console.log('Public URL generated:', publicUrl);
 
       // Save image record
       const { error: dbError } = await supabase
@@ -40,6 +45,8 @@ const AdminImageUpload = ({ section, onUploadComplete }: { section: string, onUp
         });
 
       if (dbError) throw dbError;
+
+      console.log('Image record saved to database');
 
       toast({
         title: "Success",

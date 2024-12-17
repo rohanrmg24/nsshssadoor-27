@@ -22,12 +22,14 @@ const Gallery = () => {
 
   const fetchImages = async () => {
     try {
+      console.log('Fetching images...');
       const { data, error } = await supabase
         .from('images')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
+      console.log('Fetched images:', data);
       setImages(data || []);
     } catch (error) {
       console.error('Error fetching images:', error);
