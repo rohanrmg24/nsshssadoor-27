@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Gallery from "./pages/Gallery";
 import Downloads from "./pages/Downloads";
 import Contact from "./pages/Contact";
+import AdminLogin from "./components/AdminLogin";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/downloads" element={<Downloads />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/admin" element={<AdminLogin />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>

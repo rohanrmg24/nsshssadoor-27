@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from 'lucide-react';
+import HomeSlider from './HomeSlider';
 
 const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,6 +24,7 @@ const Hero = () => {
 
   return (
     <div id="home" className="pt-16 bg-cream dark:bg-gray-900">
+      <HomeSlider />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center animate-fade-in">
           <h1 className="text-4xl tracking-tight font-extrabold text-maroon dark:text-cream sm:text-5xl md:text-6xl">
@@ -39,13 +41,6 @@ const Hero = () => {
               Learn More
             </button>
           </div>
-        </div>
-        <div className="mt-10">
-          <img
-            src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
-            alt="School Building"
-            className="rounded-lg shadow-xl w-full h-[400px] object-cover hover:scale-105 transition-transform duration-300"
-          />
         </div>
       </div>
     </div>

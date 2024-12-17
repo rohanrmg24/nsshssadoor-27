@@ -28,7 +28,7 @@ const About = () => {
               </ul>
             </div>
           </div>
-          <div className="mt-8 bg-cream dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+          <div className="mt-8 bg-cream dark:bg-gray-800 p-6 rounded-lg shadow-lg text-left">
             <h3 className="text-xl font-semibold text-maroon dark:text-cream mb-4">Our History</h3>
             <p className="text-gray-600 dark:text-gray-300">
               NSS Higher Secondary School Adoor has been a beacon of education since its establishment. Our journey began with a vision to provide quality education to the community, and we have grown to become one of the most respected educational institutions in the region.

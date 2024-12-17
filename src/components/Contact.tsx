@@ -1,34 +1,34 @@
 const Contact = () => {
   return (
-    <div id="contact" className="py-16 bg-cream">
+    <div id="contact" className="py-16 bg-cream dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-maroon text-center mb-12">
+        <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12">
           Contact Us
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold text-maroon mb-4">Get in Touch</h3>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold text-maroon dark:text-cream mb-4">Get in Touch</h3>
             <div className="space-y-4">
-              <p className="flex items-center text-gray-600">
+              <p className="flex items-center text-gray-600 dark:text-gray-300">
                 <span className="font-semibold mr-2">Email:</span>
-                <a href="mailto:nsshssadoor@gmail.com" className="hover:text-maroon">
+                <a href="mailto:nsshssadoor@gmail.com" className="hover:text-maroon dark:hover:text-cream">
                   nsshssadoor@gmail.com
                 </a>
               </p>
-              <p className="flex items-center text-gray-600">
+              <p className="flex items-center text-gray-600 dark:text-gray-300">
                 <span className="font-semibold mr-2">Phone:</span>
-                <a href="tel:+919037193141" className="hover:text-maroon">
+                <a href="tel:+919037193141" className="hover:text-maroon dark:hover:text-cream">
                   +91 9037193141
                 </a>
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 <span className="font-semibold">Virtual Tour:</span>
                 <br />
                 <a
                   href="https://maps.app.goo.gl/RwkYDoP7tPPhycyUA"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-maroon hover:underline"
+                  className="text-maroon dark:text-cream hover:underline"
                 >
                   Take a virtual tour of our school
                 </a>
