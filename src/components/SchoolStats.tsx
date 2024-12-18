@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import CountUp from 'react-countup';
 
 const SchoolStats = () => {
   const { isAdmin } = useAdmin();
@@ -69,7 +70,6 @@ const SchoolStats = () => {
           description: "Statistic updated successfully",
         });
         
-        // Refetch to ensure data consistency
         fetchStats();
       } catch (error) {
         console.error('Error updating stat:', error);
@@ -90,7 +90,7 @@ const SchoolStats = () => {
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {Object.entries(stats).map(([key, value]) => (
-            <div key={key} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition-transform duration-300 animate-fade-in">
+            <div key={key} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-maroon hover:scale-105 transition-transform duration-300 animate-fade-in">
               <div className="relative">
                 {isAdmin && editing !== key && (
                   <Button
@@ -113,7 +113,9 @@ const SchoolStats = () => {
                     <Button onClick={() => handleSave(key)}>Save</Button>
                   </div>
                 ) : (
-                  <h3 className="text-4xl font-bold text-maroon dark:text-cream animate-scale-in">{value}</h3>
+                  <h3 className="text-4xl font-bold text-maroon dark:text-cream">
+                    <CountUp end={value} duration={2.5} />
+                  </h3>
                 )}
                 <p className="text-gray-600 dark:text-gray-300 mt-2 capitalize">
                   {key}
