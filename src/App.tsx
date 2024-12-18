@@ -28,11 +28,11 @@ const App = () => (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AdminProvider>
         <TooltipProvider>
-          <div className="flex flex-col min-h-screen">
-            <div className="flex-grow">
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
+          <BrowserRouter>
+            <div className="flex flex-col min-h-screen">
+              <div className="flex-grow">
+                <Toaster />
+                <Sonner />
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/about" element={<About />} />
@@ -41,11 +41,11 @@ const App = () => (
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/admin" element={<AdminLogin />} />
                 </Routes>
-              </BrowserRouter>
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-          <SpeedInsights />
+            <SpeedInsights />
+          </BrowserRouter>
         </TooltipProvider>
       </AdminProvider>
     </ThemeProvider>
