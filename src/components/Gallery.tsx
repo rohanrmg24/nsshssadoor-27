@@ -26,6 +26,7 @@ const Gallery = () => {
       const { data, error } = await supabase
         .from('images')
         .select('*')
+        .eq('section', 'gallery')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -88,14 +89,15 @@ const Gallery = () => {
         </h2>
 
         {isAdmin && (
-          <div className="mb-8">
+          <div className="mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="text-xl font-semibold text-maroon dark:text-cream mb-4">Add New Image</h3>
             <AdminImageUpload section="gallery" onUploadComplete={fetchImages} />
           </div>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {images.map((image) => (
-            <div key={image.id} className="relative group overflow-hidden rounded-lg shadow-lg">
+            <div key={image.id} className="relative group overflow-hidden rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
               <img
                 src={image.url}
                 alt={image.title}

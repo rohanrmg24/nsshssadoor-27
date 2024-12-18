@@ -35,14 +35,14 @@ const SchoolStats = () => {
   };
 
   return (
-    <div className="py-16 bg-cream dark:bg-gray-900">
+    <div className="py-16 bg-cream dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12">
           School Statistics
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {Object.entries(stats).map(([key, value]) => (
-            <div key={key} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+            <div key={key} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center border border-gray-200 dark:border-gray-700">
               <div className="relative">
                 {isAdmin && editing !== key && (
                   <Button

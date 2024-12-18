@@ -1,40 +1,49 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Loader } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import SchoolStats from './SchoolStats';
 
+interface SlideImage {
+  id: string;
+  url: string;
+  title: string;
+}
+
 const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [heroImage, setHeroImage] = useState('');
-  const navigate = useNavigate();
+  const [images, setImages] = useState<SlideImage[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    fetchHeroImage();
+    fetchImages();
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  const fetchHeroImage = async () => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (images.length > 1) {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [images]);
+
+  const fetchImages = async () => {
     try {
-      console.log('Fetching hero image...');
+      console.log('Fetching slider images...');
       const { data, error } = await supabase
         .from('images')
-        .select('url')
-        .eq('section', 'hero')
-        .maybeSingle();
+        .select('*')
+        .eq('section', 'home-slider');
 
-      if (error) {
-        console.error('Error fetching hero image:', error);
-        return;
-      }
-
-      console.log('Hero image data:', data);
-      if (data) setHeroImage(data.url);
+      if (error) throw error;
+      console.log('Fetched slider images:', data);
+      setImages(data || []);
     } catch (error) {
-      console.error('Error fetching hero image:', error);
+      console.error('Error fetching slider images:', error);
     }
   };
 
@@ -54,25 +63,25 @@ const Hero = () => {
             Welcome to NSS Higher Secondary School Adoor
           </h1>
           <p className="mt-3 max-w-md mx-auto text-base text-gray-700 dark:text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Empowering minds, building futures - Excellence in education since establishment. Join us in our journey of creating tomorrow's leaders through quality education and comprehensive development.
+            Empowering minds, building futures - Excellence in education since establishment.
           </p>
-          <div className="mt-8">
-            <button
-              onClick={() => navigate('/about')}
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-cream bg-maroon hover:bg-maroon/90 dark:bg-cream dark:text-maroon dark:hover:bg-cream/90 transition-colors duration-300"
-            >
-              Learn More
-            </button>
+          
+          <div className="mt-12 relative h-96 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+            {images.map((image, index) => (
+              <div
+                key={image.id}
+                className={`absolute w-full h-full transition-opacity duration-1000 ${
+                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <img
+                  src={image.url}
+                  alt={image.title || `Slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
-          {heroImage && (
-            <div className="mt-12">
-              <img
-                src={heroImage}
-                alt="Education"
-                className="w-full h-auto rounded-lg shadow-xl"
-              />
-            </div>
-          )}
         </div>
       </div>
       <SchoolStats />
