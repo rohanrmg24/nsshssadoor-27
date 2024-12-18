@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Loader, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import SchoolStats from './SchoolStats';
 
 interface SlideImage {
   id: string;
@@ -63,7 +62,7 @@ const Hero = () => {
   if (isLoading) {
     return (
       <div className="h-screen flex items-center justify-center bg-cream dark:bg-gray-900">
-        <Loader className="w-12 h-12 text-maroon animate-spin" />
+        <Loader className="w-12 h-12 text-maroon dark:text-cream animate-spin" />
       </div>
     );
   }
@@ -117,7 +116,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <SchoolStats />
     </div>
   );
 };

@@ -46,7 +46,7 @@ const HomeSlider = () => {
   if (isLoading) {
     return (
       <div className="h-96 flex items-center justify-center bg-cream dark:bg-gray-900">
-        <Loader className="w-12 h-12 text-maroon animate-spin" />
+        <Loader className="w-12 h-12 text-maroon dark:text-cream animate-spin" />
       </div>
     );
   }
@@ -56,7 +56,7 @@ const HomeSlider = () => {
   }
 
   return (
-    <div className="relative h-96 overflow-hidden">
+    <div className="relative h-96 overflow-hidden border-2 border-maroon dark:border-cream rounded-lg">
       {images.map((image, index) => (
         <div
           key={image.id}
