@@ -10,6 +10,16 @@ export default defineConfig({
     },
   },
   server: {
-    historyApiFallback: true,
+    port: 8080,
+    host: "::",
+    middleware: [
+      (req, res, next) => {
+        // Handle client-side routing
+        if (req.url.indexOf('.') === -1) {
+          req.url = '/index.html';
+        }
+        next();
+      }
+    ]
   },
 });
