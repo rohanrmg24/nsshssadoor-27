@@ -79,7 +79,7 @@ const Hero = () => {
             Empowering minds, building futures - Excellence in education since establishment.
           </p>
           
-          <div className="mt-12 relative h-96 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="mt-12 relative h-96 overflow-hidden rounded-lg border-2 border-maroon dark:border-cream">
             {images.map((image, index) => (
               <div
                 key={image.id}
@@ -99,7 +99,7 @@ const Hero = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 border border-maroon dark:border-cream"
                   onClick={handlePrevious}
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -107,7 +107,7 @@ const Hero = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 border border-maroon dark:border-cream"
                   onClick={handleNext}
                 >
                   <ChevronRight className="h-4 w-4" />

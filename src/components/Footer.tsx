@@ -25,7 +25,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
             <p className="text-sm">Email: nsshssadoor@gmail.com</p>
-            <p className="text-sm">Phone: +91 9037193141</p>
+            <p className="text-sm">Phone: +91 9447390433</p>
             <div className="mt-4 flex space-x-4">
               <a href="#" className="hover:text-cream/80 transition-colors">
                 <Facebook className="h-5 w-5" />

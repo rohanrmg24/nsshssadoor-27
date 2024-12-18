@@ -4,7 +4,6 @@ import About from "../components/About";
 import Gallery from "../components/Gallery";
 import Downloads from "../components/Downloads";
 import Contact from "../components/Contact";
-import Footer from "../components/Footer";
 
 const Index = () => {
   return (
