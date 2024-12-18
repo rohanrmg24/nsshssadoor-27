@@ -84,22 +84,22 @@ const Gallery = () => {
   return (
     <div id="gallery" className="py-16 bg-cream dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12">
+        <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12 animate-fade-in">
           Our Gallery
         </h2>
 
         {isAdmin && (
-          <div className="mb-8 flex justify-center">
-            <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full">
+          <div className="mb-8 flex justify-center animate-fade-in">
+            <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border-2 border-maroon dark:border-cream max-w-md w-full">
               <h3 className="text-xl font-semibold text-maroon dark:text-cream mb-4 text-center">Add New Image</h3>
               <AdminImageUpload section="gallery" onUploadComplete={fetchImages} />
             </div>
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {images.map((image) => (
-            <div key={image.id} className="relative group overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+            <div key={image.id} className="relative group overflow-hidden rounded-lg shadow-lg border-2 border-maroon dark:border-cream hover:scale-105 transition-transform duration-300 animate-fade-in">
               <img
                 src={image.url}
                 alt={image.title}

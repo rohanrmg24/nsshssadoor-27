@@ -2,11 +2,11 @@ const Downloads = () => {
   return (
     <div id="downloads" className="py-16 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12">
+        <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12 animate-fade-in">
           Downloads
         </h2>
         <div className="max-w-2xl mx-auto">
-          <div className="bg-cream dark:bg-gray-800 rounded-lg shadow-lg p-8">
+          <div className="bg-cream dark:bg-gray-800 rounded-lg shadow-lg p-8 border-2 border-maroon dark:border-cream hover:scale-105 transition-transform duration-300 animate-fade-in">
             <h3 className="text-xl font-semibold text-maroon dark:text-cream mb-4">
               NSS HSS Adoor Mobile App
             </h3>
