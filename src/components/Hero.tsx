@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
+import SchoolStats from './SchoolStats';
 
 const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -74,6 +75,7 @@ const Hero = () => {
           )}
         </div>
       </div>
+      <SchoolStats />
     </div>
   );
 };

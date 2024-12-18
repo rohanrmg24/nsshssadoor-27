@@ -17,8 +17,8 @@ const Contact = () => {
               </p>
               <p className="flex items-center text-gray-600 dark:text-gray-300">
                 <span className="font-semibold mr-2">Phone:</span>
-                <a href="tel:+919037193141" className="hover:text-maroon dark:hover:text-cream">
-                  +91 9037193141
+                <a href="tel:+919447390433" className="hover:text-maroon dark:hover:text-cream">
+                  +91 9447390433
                 </a>
               </p>
               <p className="text-gray-600 dark:text-gray-300">
@@ -45,6 +45,7 @@ const Contact = () => {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="School Location"
+              className="dark:invert"
             ></iframe>
           </div>
         </div>
