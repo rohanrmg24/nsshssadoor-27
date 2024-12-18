@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Loader } from 'lucide-react';
+import { Loader, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 import SchoolStats from './SchoolStats';
 
 interface SlideImage {
@@ -47,6 +48,18 @@ const Hero = () => {
     }
   };
 
+  const handlePrevious = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? images.length - 1 : prev - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentImageIndex((prev) => 
+      (prev + 1) % images.length
+    );
+  };
+
   if (isLoading) {
     return (
       <div className="h-screen flex items-center justify-center bg-cream dark:bg-gray-900">
@@ -81,6 +94,26 @@ const Hero = () => {
                 />
               </div>
             ))}
+            {images.length > 1 && (
+              <>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                  onClick={handlePrevious}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                  onClick={handleNext}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
