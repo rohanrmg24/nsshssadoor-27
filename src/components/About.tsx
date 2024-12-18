@@ -1,3 +1,9 @@
+import { useState } from 'react';
+import { useAdmin } from "@/contexts/AdminContext";
+import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
 import SchoolStats from './SchoolStats';
 
 const About = () => {
