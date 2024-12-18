@@ -90,14 +90,14 @@ const Gallery = () => {
 
         {isAdmin && (
           <div className="mb-8 flex justify-center">
-            <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 max-w-md w-full">
+            <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full">
               <h3 className="text-xl font-semibold text-maroon dark:text-cream mb-4 text-center">Add New Image</h3>
               <AdminImageUpload section="gallery" onUploadComplete={fetchImages} />
             </div>
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
           {images.map((image) => (
             <div key={image.id} className="relative group overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
               <img

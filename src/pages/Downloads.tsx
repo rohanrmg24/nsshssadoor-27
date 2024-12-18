@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import DownloadsComponent from "../components/Downloads";
+import Footer from "../components/Footer";
 
 const Downloads = () => {
   return (

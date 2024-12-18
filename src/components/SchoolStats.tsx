@@ -1,5 +1,5 @@
 import { useAdmin } from "@/contexts/AdminContext";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Pencil } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +18,31 @@ const SchoolStats = () => {
   const [editing, setEditing] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
 
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('content')
+        .select('*')
+        .eq('section', 'stats');
+      
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        const statsData = data.reduce((acc: any, curr) => {
+          acc[curr.key] = parseInt(curr.content);
+          return acc;
+        }, {});
+        setStats(prev => ({ ...prev, ...statsData }));
+      }
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
+
   const handleEdit = (key: string, value: number) => {
     setEditing(key);
     setEditValue(value.toString());
@@ -28,8 +53,12 @@ const SchoolStats = () => {
     if (!isNaN(newValue)) {
       try {
         const { error } = await supabase
-          .from('stats')
-          .upsert({ key, value: newValue });
+          .from('content')
+          .upsert({ 
+            section: 'stats',
+            key,
+            content: newValue.toString()
+          });
 
         if (error) throw error;
 
@@ -39,6 +68,9 @@ const SchoolStats = () => {
           title: "Success",
           description: "Statistic updated successfully",
         });
+        
+        // Refetch to ensure data consistency
+        fetchStats();
       } catch (error) {
         console.error('Error updating stat:', error);
         toast({
@@ -53,12 +85,12 @@ const SchoolStats = () => {
   return (
     <div className="py-16 bg-cream dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12">
+        <h2 className="text-3xl font-extrabold text-maroon dark:text-cream text-center mb-12 animate-fade-in">
           School Statistics
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 animate-fade-in">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {Object.entries(stats).map(([key, value]) => (
-            <div key={key} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition-transform duration-300">
+            <div key={key} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition-transform duration-300 animate-fade-in">
               <div className="relative">
                 {isAdmin && editing !== key && (
                   <Button

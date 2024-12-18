@@ -12,6 +12,7 @@ import Gallery from "./pages/Gallery";
 import Downloads from "./pages/Downloads";
 import Contact from "./pages/Contact";
 import AdminLogin from "./components/AdminLogin";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,19 +28,23 @@ const App = () => (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AdminProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/downloads" element={<Downloads />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<AdminLogin />} />
-              <Route path="*" element={<Index />} />
-            </Routes>
-          </BrowserRouter>
+          <div className="flex flex-col min-h-screen">
+            <div className="flex-grow">
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/downloads" element={<Downloads />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/admin" element={<AdminLogin />} />
+                </Routes>
+              </BrowserRouter>
+            </div>
+            <Footer />
+          </div>
           <SpeedInsights />
         </TooltipProvider>
       </AdminProvider>
